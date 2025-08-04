@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phising-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phising-api
+  template:
+    metadata:
+      labels:
+        app: phising-api
+    spec:
+      containers:
+      - name: phising-api
+        image: phising-api:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+

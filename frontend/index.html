@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phishing Detector</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Phishing URL Detector</h1>
+    <input type="text" id="urlInput" placeholder="Masukkan URL...">
+    <button onclick="checkURL()">Cek URL</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    async function checkURL() {
+      const url = document.getElementById('urlInput').value;
+      const res = await fetch('/api/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+      const data = await res.json();
+      const resultText = data.isPhishing
+        ? "⚠️ URL Terindikasi Phishing!"
+        : "✅ URL Aman.";
+      document.getElementById('result').textContent = resultText;
+    }
+  </script>
+</body>
+</html>
